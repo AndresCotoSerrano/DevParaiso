@@ -8,18 +8,31 @@ import org.springframework.stereotype.Repository;
 @Table(name = "Disease")
 public class Disease {
 	
-	private String disease;
+	private String descriptionDisease;
+	private int idDisease;
 
-	public Disease(String enfermedad) {
-		this.disease = enfermedad;
+	public Disease(String descriptionDisease,int idDisease) {
+		this.descriptionDisease = descriptionDisease;
+		this.idDisease= idDisease;
 	}
 
-	public String getEnfermedad() {
-		return disease;
+	
+	public int getIdDisease() {
+		return idDisease;
 	}
 
-	public void setEnfermedad(String disease) {
-		this.disease = disease;
+
+	public void setIdDisease(int idDisease) {
+		this.idDisease = idDisease;
+	}
+
+
+	public String getDescriptionDisease() {
+		return descriptionDisease;
+	}
+
+	public void setDescriptionDisease(String descriptionDisease) {
+		this.descriptionDisease = descriptionDisease;
 	}
 	
 	

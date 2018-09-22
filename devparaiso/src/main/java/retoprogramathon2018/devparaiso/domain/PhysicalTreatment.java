@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 public class PhysicalTreatment {
 
 	private int idPhysicalTreatment;
-	private String description;
+	private String descriptionPhysicalTreatment;
 	
-	public PhysicalTreatment(String description,int id) {
-		this.description = description;
-		this.idPhysicalTreatment=id;
+	public PhysicalTreatment(String descriptionPhysicalTreatment,int idPhysicalTreatment) {
+		this.descriptionPhysicalTreatment = descriptionPhysicalTreatment;
+		this.idPhysicalTreatment=idPhysicalTreatment;
 	}
 	
 	public int getIdPhysicalTreatment() {
@@ -24,11 +24,11 @@ public class PhysicalTreatment {
 		this.idPhysicalTreatment = idPhysicalTreatment;
 	}
 
-	public String getdescription() {
-		return description;
+	public String getDescriptionPhysicalTreatment() {
+		return descriptionPhysicalTreatment;
 	}
-	public void setdescription(String description) {
-		this.description = description;
+	public void setDescriptionPhysicalTreatment(String descriptioPhysicalTreatmentn) {
+		this.descriptionPhysicalTreatment = descriptioPhysicalTreatmentn;
 	}
 
 	
