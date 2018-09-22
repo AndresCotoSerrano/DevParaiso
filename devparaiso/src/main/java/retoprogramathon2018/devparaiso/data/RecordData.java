@@ -3,6 +3,7 @@ package retoprogramathon2018.devparaiso.data;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import javax.sql.DataSource;
 
@@ -18,7 +19,8 @@ public class RecordData {
 
 	private JdbcTemplate jdbctemplate;
 	private DataSource dataSource;
-
+	private TreatmentData treatmentData;
+	private DiseaseData diseaseData;
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -27,23 +29,19 @@ public class RecordData {
 	
 	public Record Insert(Record record) throws SQLException {
         Connection connection = dataSource.getConnection();
-        String sqlInsert = "{call DEV_KidsRecord(?,?,?,?,?,?,?,?)}";
+        String sqlInsert = "{call DEV_RecordInsert(?,?,?)}";
 
+    
         CallableStatement statement = connection.prepareCall(sqlInsert);
-
-        statement.setString(1, kids.getidNumber());
-        statement.setString(2, kids.getname());
-        statement.setInt(3, kids.getage());
-        statement.setString(4, kids.getgenre());
-        statement.setString(5, kids.getethnic());
-        statement.setString(6, kids.getkin());
-        statement.setString(7, kids.getAttendant().getIdNumber());
-        statement.setInt(7, kids.getRecord().getIdRecord());
+        
+        statement.registerOutParameter(1, Types.INTEGER);
+        statement.setInt(2, treatmentData.Insert(record.getTreatment()).getIdTreatment());
+        statement.setInt(3, diseaseData.Insert(record.getDisease()).getIdDisease());
         statement.execute();
-        kids.setidNumber(statement.getString("id_number"));
+        record.setIdRecord(statement.getInt("id_record"));
         statement.close();
         connection.close();
-        return kids;
+        return record;
     }
 	
 }

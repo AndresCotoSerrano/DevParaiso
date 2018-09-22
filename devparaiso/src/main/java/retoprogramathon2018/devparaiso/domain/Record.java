@@ -39,12 +39,12 @@ public class Record {
 	}
 
 
-	public Disease getEnfermedades() {
+	public Disease getDisease() {
 		return diseases;
 	}
 
 
-	public void setEnfermedades(Disease enfermedades) {
+	public void setDisease(Disease enfermedades) {
 		this.diseases = enfermedades;
 	}
 	

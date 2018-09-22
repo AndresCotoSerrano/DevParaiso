@@ -32,9 +32,9 @@ public class PhysicalTreatmentData {
         CallableStatement statement = connection.prepareCall(sqlInsert);
 
         statement.registerOutParameter(1, Types.INTEGER);
-        statement.setString(2, physicalTreatment.getdescription());
+        statement.setString(2, physicalTreatment.getDescriptionPhysicalTreatment());
         statement.execute();
-        physicalTreatment.setdescription(statement.getString("id_physical_treatment"));
+        physicalTreatment.setIdPhysicalTreatment(statement.getInt("id_physical_treatment"));
         statement.close();
         connection.close();
         return physicalTreatment;
