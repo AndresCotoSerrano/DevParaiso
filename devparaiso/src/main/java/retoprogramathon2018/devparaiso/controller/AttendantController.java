@@ -22,11 +22,11 @@ public class AttendantController {
 
     @PutMapping(value = "/login/{email}/{password}")
     public ResponseEntity<Attendant> loginAttendant(@PathVariable("email") final String email, @PathVariable("password") final String password){
-        Attendant attendant = new Attendant();
-        attendant.setEmail(email);
-        attendant.setPassword(password);
+        Attendant attendantUser = new Attendant();
+        attendantUser.setEmail(email);
+        attendantUser.setPassword(password);
         try{
-            attendantDao.AttendantVerify(attendant);
+            attendantDao.AttendantVerify(attendantUser);
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -45,9 +45,9 @@ public class AttendantController {
     }
 
     @GetMapping("/{Email}/{Password}")
-    public ResponseEntity<List<Attendant>> Validate(@PathVariable("Email")final String email, @PathVariable("Password")final String password){
-        System.out.println(email);
-        List<Attendant> result = attendantDao.Login(email, password);
+    public ResponseEntity<List<Attendant>> Validate(@PathVariable("Email")final String emailUser, @PathVariable("Password")final String passwordUser){
+        System.out.println(emailUser);
+        List<Attendant> result = attendantDao.Login(emailUser, passwordUser);
         return new ResponseEntity<List<Attendant>>(result, HttpStatus.OK);
     }
 }
