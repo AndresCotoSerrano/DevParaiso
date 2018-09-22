@@ -1,5 +1,11 @@
 package retoprogramathon2018.devparaiso.domain;
 
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+@Table(name = "Enfermedad")
 public class Enfermedad {
 	
 	public String enfermedad;

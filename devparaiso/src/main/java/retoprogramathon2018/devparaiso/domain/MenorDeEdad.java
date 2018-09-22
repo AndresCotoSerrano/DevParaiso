@@ -3,17 +3,24 @@ package retoprogramathon2018.devparaiso.domain;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.*;
+
+
 @Repository
+@Table(name = "MenorDeEdad")
 public class MenorDeEdad {
 	
-		
-	public String nombre;
-	public String cedula;
-	public int edad;
-	public String genero;
-	public Antecedentes antecedentes;
-	public String etnia;
-	public String parentesco;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	
+	private int idMenor;
+	private String nombre;
+	private String cedula;
+	private int edad;
+	private String genero;
+	private Antecedentes antecedentes;
+	private String etnia;
+	private String parentesco;
 	
 	
 	public MenorDeEdad(String nombre, String cedula, int edad, String genero, Antecedentes antecedentes, String etnia,
