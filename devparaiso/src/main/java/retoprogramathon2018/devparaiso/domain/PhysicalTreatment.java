@@ -8,11 +8,22 @@ import org.springframework.stereotype.Repository;
 @Table(name = "PhysicalTreatment")
 public class PhysicalTreatment {
 
+	private int idPhysicalTreatment;
 	private String description;
 	
-	public PhysicalTreatment(String description) {
+	public PhysicalTreatment(String description,int id) {
 		this.description = description;
+		this.idPhysicalTreatment=id;
 	}
+	
+	public int getIdPhysicalTreatment() {
+		return idPhysicalTreatment;
+	}
+
+	public void setIdPhysicalTreatment(int idPhysicalTreatment) {
+		this.idPhysicalTreatment = idPhysicalTreatment;
+	}
+
 	public String getdescription() {
 		return description;
 	}

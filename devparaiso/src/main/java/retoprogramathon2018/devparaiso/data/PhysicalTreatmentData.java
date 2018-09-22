@@ -3,6 +3,7 @@ package retoprogramathon2018.devparaiso.data;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import javax.sql.DataSource;
 
@@ -11,10 +12,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import retoprogramathon2018.devparaiso.domain.Kids;
+import retoprogramathon2018.devparaiso.domain.PhysicalTreatment;
 
 @Repository
-public class KidsData {
-	
+public class PhysicalTreatmentData {
 	private JdbcTemplate jdbctemplate;
 	private DataSource dataSource;
 
@@ -24,26 +25,18 @@ public class KidsData {
 		this.jdbctemplate = new JdbcTemplate(dataSource);
 	}
 	
-	public Kids Insert(Kids kids) throws SQLException {
+	public PhysicalTreatment Insert(PhysicalTreatment physicalTreatment) throws SQLException {
         Connection connection = dataSource.getConnection();
-        String sqlInsert = "{call DEV_KidsInsert(?,?,?,?,?,?,?,?)}";
+        String sqlInsert = "{call DEV_PhysicalTreatmentDataInsert(?,?)}";
 
         CallableStatement statement = connection.prepareCall(sqlInsert);
 
-        statement.setString(1, kids.getidNumber());
-        statement.setString(2, kids.getname());
-        statement.setInt(3, kids.getage());
-        statement.setString(4, kids.getgenre());
-        statement.setString(5, kids.getethnic());
-        statement.setString(6, kids.getkin());
-        statement.setString(7, kids.getAttendant().getIdNumber());
-        statement.setInt(7, kids.getRecord().getIdRecord());
+        statement.registerOutParameter(1, Types.INTEGER);
+        statement.setString(2, physicalTreatment.getdescription());
         statement.execute();
-        kids.setidNumber(statement.getString("id_number"));
+        physicalTreatment.setdescription(statement.getString("id_physical_treatment"));
         statement.close();
         connection.close();
-        return kids;
+        return physicalTreatment;
     }
-	
-	
 }

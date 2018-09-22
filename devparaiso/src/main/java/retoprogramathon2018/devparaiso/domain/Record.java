@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Table(name = "Record")
 public class Record {
-
+	
+    private int idRecord;
 	private Treatment Treatment;
 	private Disease diseases;
 	
@@ -20,6 +21,16 @@ public class Record {
 
 	public Treatment getTreatment() {
 		return Treatment;
+	}
+
+
+	public int getIdRecord() {
+		return idRecord;
+	}
+
+
+	public void setIdRecord(int idRecord) {
+		this.idRecord = idRecord;
 	}
 
 

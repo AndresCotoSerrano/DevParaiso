@@ -11,10 +11,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import retoprogramathon2018.devparaiso.domain.Kids;
+import retoprogramathon2018.devparaiso.domain.Record;
 
 @Repository
-public class KidsData {
-	
+public class RecordData {
+
 	private JdbcTemplate jdbctemplate;
 	private DataSource dataSource;
 
@@ -24,9 +25,9 @@ public class KidsData {
 		this.jdbctemplate = new JdbcTemplate(dataSource);
 	}
 	
-	public Kids Insert(Kids kids) throws SQLException {
+	public Record Insert(Record record) throws SQLException {
         Connection connection = dataSource.getConnection();
-        String sqlInsert = "{call DEV_KidsInsert(?,?,?,?,?,?,?,?)}";
+        String sqlInsert = "{call DEV_KidsRecord(?,?,?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(sqlInsert);
 
@@ -44,6 +45,5 @@ public class KidsData {
         connection.close();
         return kids;
     }
-	
 	
 }
