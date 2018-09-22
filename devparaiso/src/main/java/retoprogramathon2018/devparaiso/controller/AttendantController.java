@@ -44,6 +44,7 @@ public class AttendantController {
         return new ResponseEntity<Attendant>(attendantCreated, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{Email}/{Password}")
     public ResponseEntity<List<Attendant>> Validate(@PathVariable("Email")final String email, @PathVariable("Password")final String password){
         System.out.println(email);
         List<Attendant> result = attendantDao.Login(email, password);
