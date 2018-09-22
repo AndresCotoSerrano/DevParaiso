@@ -1,6 +1,11 @@
 package retoprogramathon2018.devparaiso.domain;
 
+import javax.persistence.Table;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
+@Table(name = "Attendant")
 public class Attendant {
 
     private String userName;
