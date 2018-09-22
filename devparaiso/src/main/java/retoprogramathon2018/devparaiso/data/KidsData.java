@@ -17,6 +17,7 @@ public class KidsData {
 	
 	private JdbcTemplate jdbctemplate;
 	private DataSource dataSource;
+	private RecordData recordData; 
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
@@ -37,7 +38,7 @@ public class KidsData {
         statement.setString(5, kids.getethnic());
         statement.setString(6, kids.getkin());
         statement.setString(7, kids.getAttendant().getIdNumber());
-        statement.setInt(7, kids.getRecord().getIdRecord());
+        statement.setInt(8, recordData.Insert(kids.getRecord()).getIdRecord());
         statement.execute();
         kids.setidNumber(statement.getString("id_number"));
         statement.close();
