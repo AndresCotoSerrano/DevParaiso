@@ -3,18 +3,16 @@ package retoprogramathon2018.devparaiso.domain;
 
 public class Attendant {
 
-    private int userCount ;
-    private String attendantName;
-    private String attendantLastName;
+    private int idUser ;
+    private String attendantFullName;
     private String idNumber;
     private String phoneNumber;
     private String email;
     private String password;
 
-    public Attendant(int userCount, String attendantName, String attendantLastName, String idNumber, String phoneNumber, String email, String password) {
-        this.userCount = userCount;
-        this.attendantName = attendantName;
-        this.attendantLastName = attendantLastName;
+    public Attendant(int idUser, String attendantFullName,String idNumber, String phoneNumber, String email, String password) {
+        this.idUser = idUser;
+        this.attendantFullName = attendantFullName;
         this.idNumber = idNumber;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -56,27 +54,19 @@ public class Attendant {
         this.password = password;
     }
 
-    public int getUserCount() {
-        return userCount;
+    public String getAttendantFullName() {
+        return attendantFullName;
     }
 
-    public void setUserCount(int userCount) {
-        this.userCount = userCount;
+    public void setAttendantFullName(String attendantFullName) {
+        this.attendantFullName = attendantFullName;
     }
 
-    public String getAttendantName() {
-        return attendantName;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setAttendantName(String attendantName) {
-        this.attendantName = attendantName;
-    }
-
-    public String getAttendantLastName() {
-        return attendantLastName;
-    }
-
-    public void setAttendantLastName(String attendantLastName) {
-        this.attendantLastName = attendantLastName;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 }
