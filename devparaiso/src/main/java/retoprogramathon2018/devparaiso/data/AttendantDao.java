@@ -31,19 +31,18 @@ public class AttendantDao {
 
     public Attendant Insert(Attendant attendant) throws SQLException {
         Connection connection = dataSource.getConnection();
-        String sqlInsert = "{call DEV_AttendantInsert(?,?,?,?,?,?,?)}";
+        String sqlInsert = "{call DEV_AttendantInsert(?,?,?,?,?,?)}";
 
         CallableStatement statement = connection.prepareCall(sqlInsert);
 
         statement.registerOutParameter(1, Types.INTEGER);
 
 
-        statement.setString(2, attendant.getAttendantName());
-        statement.setString(3, attendant.getAttendantLastName());
-        statement.setString(4, attendant.getIdNumber());
-        statement.setString(5, attendant.getPhoneNumber());
-        statement.setString(6, attendant.getEmail());
-        statement.setString(7, attendant.getPassword());
+        statement.setString(2, attendant.getAttendantFullName());
+        statement.setString(3, attendant.getIdNumber());
+        statement.setString(4, attendant.getPhoneNumber());
+        statement.setString(5, attendant.getEmail());
+        statement.setString(6, attendant.getPassword());
         statement.execute();
         attendant.setIdNumber(statement.getString("user_name"));
         statement.close();
@@ -60,23 +59,23 @@ public class AttendantDao {
     public static class LoginExtract implements ResultSetExtractor<List<Attendant>>{
         @Override
         public List<Attendant> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            Map<Integer, Attendant> map = new HashMap<>();
+            Map<Integer, Attendant> map = new HashMap<Integer, Attendant>();
             Attendant attendant = null;
             while(rs.next()){
-                Integer idAttendant = rs.getInt("id_attendant");
-                attendant = map.get(idAttendant);
+                Integer idUser = rs.getInt("id_user");
+                attendant = map.get(idUser);
 
                 if(attendant == null) {
 
                     attendant = new Attendant();
-                    attendant.setAttendantName(rs.getString("attendant_name"));
-                    attendant.setAttendantLastName(rs.getString("attendant_lastname"));
+                    attendant.setIdUser(idUser);
+                    attendant.setAttendantFullName(rs.getString("attendant_fullname"));
                     attendant.setIdNumber(rs.getString("id_number"));
                     attendant.setPhoneNumber(rs.getString("phone_number"));
                     attendant.setEmail(rs.getString("email"));
                     attendant.setPassword(rs.getString("password"));
 
-                    map.put(idAttendant, attendant);
+                    map.put(idUser, attendant);
                 }
             }
 
