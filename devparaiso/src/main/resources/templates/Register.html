@@ -55,7 +55,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-lock"></i>
                             </span>
-                            <input type="password" class="form-control" id="input" name="pass" placeholder="Password">
+                            <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">
@@ -131,7 +131,7 @@
         }
     }
     function validaciones() {
-        if (validarAttendent() == true && validaTelefono() == true && longitudEmail() == true) {
+        if (validarAttendent() == true && validaTelefono() == true && longitudEmail() == true && validaPass() == true) {
             return true;
         } else {
             return false;
@@ -159,6 +159,9 @@
     }
     function limpiarCorreo() {
         document.getElementById("email").value = ""
+    }
+    function limpiarPass() {
+        document.getElementById("pass").value = ""
     }
     function validaTelefono() {
         var texto = document.getElementById("phone").value;
@@ -200,9 +203,21 @@
         separador = "";
         var array = text.split(separador);
         var bandera = false;
+        var bandera2 = false;
+        var validos = "abcdefghijklmnopqrstuvwxyz0123456789-_.@";
+        var arrayValidos = validos.split("");
         for (var i = 0; i < array.length; i++) {
-            if (array[i] == "_" || array[i] == "." || array[i] == "-") {
-                bandera = true;
+            for (var j = 0; j < arrayValidos.length; j++) {
+                if (!arrayValidos.includes(array[i])) {
+                    bandera = true;
+                    break;
+                }
+            }
+
+        }
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] == "." && array[i + 1] == ".") {
+                bandera2 = true;
                 break;
             }
         }
@@ -211,8 +226,69 @@
             limpiarCorreo();
             return false;
         } else if (bandera) {
-            alert('El correo solo debe aceptar caracteres alfanumericos');
+            alert('El correo solo acepta caracteres alfanumericos');
             limpiarCorreo();
+            return false;
+        } else if (!array.includes('@')) {
+            alert('Formato incorrecto del correo, falta caracter "@"');
+            limpiarCorreo();
+            return false;
+        } else if (bandera2) {
+            alert('No pueden existir dos "." seguidos');
+            limpiarCorreo();
+            return false;
+        } else if (array[0] == "." || array[array.length - 1] == ".") {
+            alert('correo no puede comenzar o terminar con un punto');
+            limpiarCorreo();
+            return false;
+        } else if (array[0] == "@") {
+            alert('faltante de caracteres antes del @');
+            limpiarCorreo();
+            return false;
+        } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(text)) {
+            alert('Se ha ingresado un formato de correo incorrecto');
+            limpiarCorreo();
+            return false;
+        } else {
+            return true;
+        }
+    }
+    function validaPass() {
+        var user = document.getElementById("cedula").value;
+        var pass = document.getElementById("pass").value;
+        var arrayPass = pass.split("");
+        var banderaUpper = false;
+        var banderaLower = false;
+        var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var arrayUpper = upper.split("");
+        var lower = "abcdefghijklmnopqrstuvwxyz";
+        var arrayLower = lower.split("");
+        for (var i = 0; i < arrayPass.length; i++) {
+            if (arrayUpper.includes(arrayPass[i])) {
+                alert(arrayPass[i]);
+                banderaUpper = true;
+                break;
+            }
+        }
+        for (var i = 0; i < arrayPass.length; i++) {
+            if (arrayLower.includes(arrayPass[i])) {
+                alert(arrayPass[i]);
+                banderaLower = true;
+                break;
+            }
+        }
+        alert(banderaLower + ":" + banderaUpper)
+        if (pass.length < 6) {
+            alert('la password es corta, minimo 6 digitos');
+            limpiarPass();
+            return false;
+        } else if (!banderaUpper) {
+            alert('La password debe incluir mayusculas');
+            limpiarPass();
+            return false;
+        } else if (!banderaLower) {
+            alert('La password debe incluir minisculas');
+            limpiarPass();
             return false;
         } else {
             return true;
