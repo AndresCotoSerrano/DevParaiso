@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <meta charset="UTF-8"></meta>
     <link rel="stylesheet" href="static/css/stylesheet.css">
+    <script src="static/js/script.js"></script>
 </head>
 
 <body class="bodystyle">
@@ -46,7 +47,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-user"></i>
                             </span>
-                            <input type="text" class="form-control" id="email" name="email" placeholder="user@example.com">
+                            <input type="text" class="form-control" id="input" name="email" placeholder="user@example.com">
                         </div>
                     </div>
                     <div class="form-group">
@@ -54,7 +55,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-lock"></i>
                             </span>
-                            <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+                            <input type="password" class="form-control" id="input" name="pass" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">
@@ -62,7 +63,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-lock"></i>
                             </span>
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefono">
+                            <input type="text" required onKeyPress="return SoloNumeros(event);" class="form-control" id="phone" name="phone" placeholder="Telefono">
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,7 +71,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-lock"></i>
                             </span>
-                            <input type="text" class="form-control" id="attendent" name="attendent" placeholder="Encargado">
+                            <input type="text" required onkeypress="return soloLetras(event);" class="form-control" id="attendent" name="attendent" placeholder="Encargado">
                         </div>
                     </div>
                     <div class="form-group">
@@ -78,7 +79,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-lock"></i>
                             </span>
-                            <input type="text" class="form-control" id="cedula" name="cedula" placeholder="0-000-000">
+                            <input type="text" required onKeyPress="return SoloNumeros(event);" class="form-control" id="cedula" name="cedula" placeholder="Cedula">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-warning">Register</button>
@@ -90,8 +91,58 @@
     </div>
 
     <footer class="container-fluid bg-4 text-center">
-        <p>DevParaiso programathon © 2018</p>
+        <p>DevParaiso Programathon © 2018</p>
     </footer>
 </body>
+<script>
+    function dobleValidacion(e) {
+        soloLetras(e);
+        longitudDelTexto(e);
+    }
+    function soloLetras(e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = " áéíóúabcdefghijklmnñopqrstuvwxyzÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ";//Se define todo el abecedario que se quiere que se muestre.
+        especiales = [8, 37, 39, 46, 6]; //Es la validación del KeyCodes, que teclas recibe el campo de texto.
+
+        tecla_especial = false
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+            alert('Este capo solo acepta valores alfabeticos');
+            return false;
+        }
+    }
+    function SoloNumeros(evt) {
+        if (window.event) {//asignamos el valor de la tecla a keynum
+            keynum = evt.keyCode; //IE
+        }
+        else {
+            keynum = evt.which; //FF
+        }
+        //comprobamos si se encuentra en el rango numérico y que teclas no recibirá.
+        if ((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13 || keynum == 6) {
+            return true;
+        }
+        else {
+            alert('Este campo solo acepta valores numericos');
+            return false;
+        }
+    }
+    function longitudDelTexto(e) {
+        var Max_Length = 5;
+        var length = document.getElementById("attendent").value.length;
+        if (length > Max_Length) {
+            var address1 = document.getElementById("attendent");
+            alert('limite de 35 caracteres');
+            address1.parentNode.innerHTML = address1.parentNode.innerHTML + "<p style='color:red'>the max length of " + Max_Length + " characters is reached, you typed in  " + length + "characters</p>";
+        }
+    }
+</script>
 
 </html>
