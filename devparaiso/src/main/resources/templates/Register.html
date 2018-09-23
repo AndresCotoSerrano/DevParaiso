@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <meta charset="UTF-8"></meta>
     <link rel="stylesheet" href="static/css/stylesheet.css">
-    <script src="static/js/script.js"></script>
+    <script language="javascript" type="text/javascript" src="/sstatic/js/script.js"></script>
 </head>
 
 <body class="bodystyle">
@@ -41,7 +41,7 @@
                 <FONT SIZE=4 color="1ABC9C">Register</FONT>
             </div>
             <div class="panel-body">
-                <form action="success.html" onsubmit="return validar(this)">
+                <form action="success.html" onsubmit="return validaciones()">
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -82,7 +82,7 @@
                             <input type="text" required onKeyPress="return SoloNumeros(event);" class="form-control" id="cedula" name="cedula" placeholder="Cedula">
                         </div>
                     </div>
-                    <button type="submit"  class="btn btn-warning">Register</button>
+                    <button type="submit" class="btn btn-warning">Register</button>
                     <button type="submit" class="btn btn-warning">Cancel</button>
                 </form>
 
@@ -110,7 +110,7 @@
         }
 
         if (letras.indexOf(tecla) == -1 && !tecla_especial) {
-            alert('Este capo solo acepta valores alfabeticos');
+            alert('Este campo solo acepta valores alfabeticos');
             return false;
         }
     }
@@ -130,7 +130,14 @@
             return false;
         }
     }
-    function validar(strg) {
+    function validaciones() {
+        if(validar()==true&&validaTelefono()==true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function validar() {
         var texto = document.getElementById("attendent").value;
         if (texto.length < 2) {
             alert('Falta valores');
@@ -141,11 +148,26 @@
             limpiar();
             return false;
         } else {
+            alert('entre aca en valida');
             return true;
         }
     }
     function limpiar() {
         document.getElementById("attendent").value = "";
+    }
+    function validaTelefono() {
+        var texto = document.getElementById("phone").value;
+        alert(texto.length);
+        if (texto == "-") {
+            alert('El numero telefonico no puede contener guiones');
+            return false;
+        } else if (texto.length != 8) {
+            alert('El numero debe tener exactamente 8 digitos');
+            return false;
+        } else {
+            alert('entro aca en valida telefono');
+            return true;
+        }
     }
 </script>
 
