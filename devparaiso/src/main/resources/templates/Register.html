@@ -41,7 +41,7 @@
                 <FONT SIZE=4 color="1ABC9C">Register</FONT>
             </div>
             <div class="panel-body">
-                <form action="#" th:action="@{/LoginVerificacion}" method="POST">
+                <form action="success.html" onsubmit="return validar(this)">
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -82,7 +82,7 @@
                             <input type="text" required onKeyPress="return SoloNumeros(event);" class="form-control" id="cedula" name="cedula" placeholder="Cedula">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-warning">Register</button>
+                    <button type="submit"  class="btn btn-warning">Register</button>
                     <button type="submit" class="btn btn-warning">Cancel</button>
                 </form>
 
@@ -95,10 +95,6 @@
     </footer>
 </body>
 <script>
-    function dobleValidacion(e) {
-        soloLetras(e);
-        longitudDelTexto(e);
-    }
     function soloLetras(e) {
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
@@ -134,14 +130,22 @@
             return false;
         }
     }
-    function longitudDelTexto(e) {
-        var Max_Length = 5;
-        var length = document.getElementById("attendent").value.length;
-        if (length > Max_Length) {
-            var address1 = document.getElementById("attendent");
-            alert('limite de 35 caracteres');
-            address1.parentNode.innerHTML = address1.parentNode.innerHTML + "<p style='color:red'>the max length of " + Max_Length + " characters is reached, you typed in  " + length + "characters</p>";
+    function validar(strg) {
+        var texto = document.getElementById("attendent").value;
+        if (texto.length < 2) {
+            alert('Falta valores');
+            limpiar();
+            return false;
+        } else if (texto.length >= 35) {
+            alert('Longitud de caracteres superado');
+            limpiar();
+            return false;
+        } else {
+            return true;
         }
+    }
+    function limpiar() {
+        document.getElementById("attendent").value = "";
     }
 </script>
 
