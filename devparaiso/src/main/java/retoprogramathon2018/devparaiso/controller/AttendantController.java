@@ -11,7 +11,9 @@ import retoprogramathon2018.devparaiso.domain.Attendant;
 import java.sql.SQLException;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
+@RequestMapping("/dev/attendant")
 public class AttendantController {
     private AttendantDao attendantDao;
 
