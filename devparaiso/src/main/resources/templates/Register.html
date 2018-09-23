@@ -47,7 +47,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-user"></i>
                             </span>
-                            <input type="text" class="form-control" id="input" name="email" placeholder="user@example.com">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="user@example.com">
                         </div>
                     </div>
                     <div class="form-group">
@@ -131,13 +131,13 @@
         }
     }
     function validaciones() {
-        if(validar()==true&&validaTelefono()==true){
+        if (validarAttendent() == true && validaTelefono() == true && longitudEmail() == true) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    function validar() {
+    function validarAttendent() {
         var texto = document.getElementById("attendent").value;
         if (texto.length < 2) {
             alert('Falta valores');
@@ -148,24 +148,73 @@
             limpiar();
             return false;
         } else {
-            alert('entre aca en valida');
             return true;
         }
     }
-    function limpiar() {
+    function limpiarAttendent() {
         document.getElementById("attendent").value = "";
+    }
+    function limpiarAttendent() {
+        document.getElementById("phone").value = "";
+    }
+    function limpiarCorreo() {
+        document.getElementById("email").value = ""
     }
     function validaTelefono() {
         var texto = document.getElementById("phone").value;
-        alert(texto.length);
-        if (texto == "-") {
-            alert('El numero telefonico no puede contener guiones');
+        if (texto == "-" || texto == " ") {
+            alert('El numero telefonico no puede contener guiones, o espacios');
+            limpiarAttendent();
             return false;
-        } else if (texto.length != 8) {
-            alert('El numero debe tener exactamente 8 digitos');
+        } else if (texto.length < 8) {
+            alert('El numero debe contener 8 digitos');
+            limpiarAttendent();
+            return false;
+        } else if (texto.length > 8) {
+            alert('Sobre paso la longitud del numero');
+            limpiarAttendent();
+            return false;
+        } else if (texto.length == 4) {
+            alert('El texto es de solo 4 digitos');
+            limpiarAttendent();
             return false;
         } else {
-            alert('entro aca en valida telefono');
+            return true;
+        }
+    }
+    function isnum() {
+        var texto = document.getElementById("phone").value;
+        separador = "";
+        array = texto.split(separador);
+        for (var i = 0; i < array.length; i++) {
+            if (isNaN(array[i])) {
+                alert('El dato ingresado contiene valores no numericos');
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    function longitudEmail() {
+        var text = document.getElementById("email").value;
+        separador = "";
+        var array = text.split(separador);
+        var bandera = false;
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] == "_" || array[i] == "." || array[i] == "-") {
+                bandera = true;
+                break;
+            }
+        }
+        if (text.length < 8 || text.length > 256) {
+            alert('El correo supera los 256 caracteres');
+            limpiarCorreo();
+            return false;
+        } else if (bandera) {
+            alert('El correo solo debe aceptar caracteres alfanumericos');
+            limpiarCorreo();
+            return false;
+        } else {
             return true;
         }
     }
